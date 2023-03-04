@@ -83,8 +83,14 @@ public class EmployeeController {
     }
 
     @GetMapping("/getdatabyemailid/{empEmailId}")
-    public ResponseEntity<List<Employee>>getDataByEmailId(@PathVariable String empEmailId) {
+    public ResponseEntity<List<Employee>> getDataByEmailId(@PathVariable String empEmailId) {
         return ResponseEntity.ok(employeeServiceImpl.getAllData().stream().filter(e -> e.getEmpEmailId().equals(empEmailId)).collect(Collectors.toList()));
+    }
+
+    @GetMapping("/getdatabyanyinput/{input}")
+    public ResponseEntity<List<Employee>> getDataByAnyInput(@PathVariable String input) {
+        return ResponseEntity.ok(employeeServiceImpl.getAllData().stream().filter(e -> e.getEmpName().equals(input) || e.getEmpDOB().equals(input) ||
+                e.getEmpContactNumber() == Long.valueOf(input) || e.getEmpSalary() == Double.valueOf(input)).collect(Collectors.toList()));
     }
 
     @DeleteMapping("/deletedatabyid/{empId}")
